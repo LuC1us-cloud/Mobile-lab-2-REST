@@ -1,0 +1,19 @@
+﻿{
+  "runtime": "Net60",
+  "documentGenerator": {
+    "fromDocument": {
+      "url": "http://localhost:5000/swagger/v1/swagger.json",
+      "output": null
+    }
+  },
+
+  "codeGenerators": {
+    "openApiToCSharpClient": {
+      "classname": "PumpService",
+      "namespace": "ServiceReference",
+      "output": "PumpService.cs",
+
+      "generateSyncMethods": true
+    }
+  }
+}
