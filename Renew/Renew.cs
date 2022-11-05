@@ -55,25 +55,50 @@ class Renew
 
                 while (true)
                 {
-                    var canPump = service.CanSubtractLiquid();
+                    log.Info("");
+                    Thread.Sleep(10000);
 
-                    var liquidToPump = rnd.Next(1, 20);
+                    Book[] books = service.GetWornOutBooks();
+                    log.Info($"Found {books.Length} worn out books");
 
-                    if (canPump)
+                    if (books.Length == 0)
                     {
-                        log.Info($"Generated amount to pump out: {liquidToPump}");
-                        var pumpedLiquid = service.SubtractLiquid(liquidToPump);
-                        log.Info($"Amount of liquid pumped out: {pumpedLiquid}");
-                        log.Info("\n");
+                        log.Info("No worn out books found");
+                        continue;
                     }
-                    else
-                    {
-                        log.Info("I cannot pump out the liquid");
-                        log.Info("\n");
-                    }
-                    log.Info("---");
 
-                    Thread.Sleep(2000);
+                    float budget = service.GetLibraryBudget();
+                    log.Info($"Library budget: {budget.ToString("0.00")}$");
+                    if (budget == 0)
+                    {
+                        log.Info("No budget left");
+                        continue;
+                    }
+
+                    Book mostWornOutBook = books[0];
+                    foreach (var book in books)
+                    {
+                        if (book.Wear > mostWornOutBook.Wear)
+                        {
+                            mostWornOutBook = book;
+                        }
+                    }
+
+                    log.Info($"Most worn out book: Id {mostWornOutBook.Id}, ({mostWornOutBook.Wear.ToString("0.00")})");
+
+                    float repairAmountPercentage = mostWornOutBook.GetRepairAmount(budget) * 100;
+                    float repairPrice = mostWornOutBook.GetRepairPrice();
+                    log.Info($"Available repair amount: {(repairAmountPercentage).ToString("0.00")}% of {mostWornOutBook.Wear.ToString("0.00")} | Full repair price: {repairPrice.ToString("0.00")}$");
+
+                    if (repairAmountPercentage > 100) repairAmountPercentage = 100;
+
+                    float wearToRepair = mostWornOutBook.Wear * repairAmountPercentage / 100;
+
+                    log.Info($"Repairing {wearToRepair.ToString("0.00")} wear");
+
+                    service.RepairBook(mostWornOutBook.Id, wearToRepair);
+
+                    Thread.Sleep(10000);
                 }
             }
             catch (Exception e)

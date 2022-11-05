@@ -8,10 +8,9 @@ using NLog;
 
 public class Library
 {
-    public static int capacity = new Random().Next(0, 100);
-    public static int lowerBound = 0;
-    public static int upperBound = 0;
-    public static bool clientIsActive = false;
+    public static float money = 0;
+    public static int capacity = 5;
+    public static Book[] books = new Book[capacity];
 
     /// <summary>
     /// Logger for this class.
@@ -55,6 +54,14 @@ public class Library
         //configure logging
         ConfigureLogging();
 
+        // populate the library
+        for (int i = 0; i < capacity; i++)
+        {
+            books[i] = new Book();
+            books[i].Id = i;
+            books[i].RepairPrice = (float)(50 + 10.0 * new Random().NextDouble());
+        }
+
         //indicate server is about to start
         log.Info("Library is about to start");
 
@@ -63,15 +70,6 @@ public class Library
 
         while (true)
         {
-            if (clientIsActive)
-            {
-                log.Info("Client is working...");
-                Thread.Sleep(2000);
-                Library.clientIsActive = false;
-            }
-            lowerBound = new Random().Next(0, 50);
-            upperBound = new Random().Next(lowerBound + 1, 100);
-            log.Info("Bounds changed to: " + lowerBound + " " + upperBound + " and current capacity is: " + capacity);
             Thread.Sleep(4000);
         }
     }

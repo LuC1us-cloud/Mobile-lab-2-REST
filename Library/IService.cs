@@ -1,56 +1,35 @@
 namespace Library;
 
-/// <summary>
-/// Structure for testing pass-by-value calls.
-/// </summary>
-public class WaterContainer
+public class Book
 {
-    /// <summary>
-    /// Capacity
-    /// </summary>
-    public int Capacity { get; set; }
+    public int Id { get; set; } // Id (Primary key)
+    public float LoanDuration { get; set; } // LoanDuration
+    public bool Taken { get; set; } = false; // Indicates if the book is taken or not
+    public DateTime LoanTime { get; set; } // Time when the book was taken
+    public float Wear { get; set; } = 0f; // Indicates how much the book is worn
+    public float RepairPrice { get; set; } = 1f; // Price of the book per 1 wear to repair
 
-    /// <summary>
-    /// Upper bound
-    /// </summary>
-    public int UpperBound { get; set; }
+    public float GetRepairPrice()
+    {
+        return RepairPrice * Wear;
+    }
 
-    /// <summary>
-    /// Lower bound
-    /// </summary>
-    public int LowerBound { get; set; }
+    public float GetRepairAmount(float money)
+    {
+        return money / GetRepairPrice();
+    }
 }
 
-/// <summary>
-/// Service contract.
-/// </summary>
 public interface IService
 {
-    /// <summary>
-    /// Check if liquid can be subtracted from the capacity
-    /// </summary>
-    /// <returns>boolean</returns>
-    bool CanSubtractLiquid();
 
-    /// <summary>
-    /// Check if liquid can be added to the capacity
-    /// </summary>
-    /// <returns>boolean</returns>
-	bool CanAddLiquid();
+    Book TakeBook(int id);
 
-    /// <summary>
-    /// Add liquid to the capacity
-    /// </summary>
-    /// <param name="amount">Amount of liquid to add</param>
-    /// <returns>Amount of liquid to be added</returns>
-    int AddLiquid(int amount);
+    void ReturnBook(Book book);
 
-    /// <summary>
-    /// Subtract liquid from the capacity
-    /// </summary>
-    /// <param name="amount">Amount of liquid to subtract</param>
-    /// <returns>Amount of liquid to be subtracted</returns>
-    int SubtractLiquid(int amount);
+    void RepairBook(int id, float wear);
 
-    // WaterContainer GetBounds(WaterContainer structure);
+    int GetLibraryCapacity();
+    Book[] GetWornOutBooks();
+    float GetLibraryBudget();
 }

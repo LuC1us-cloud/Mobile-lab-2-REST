@@ -15,73 +15,65 @@ public class ServiceController : ControllerBase
     /// </summary>
     private static readonly ServiceLogic logic = new ServiceLogic();
 
-    /// <summary>
-    /// Check if liquid can be added to the capacity
-    /// </summary>
-    /// <returns>boolean</returns>
     [HttpGet]
-    [Route("canAddLiquid")]
-    public ActionResult<bool> CanAddLiquid()
+    [Route("takeBook/{id}")]
+    public ActionResult<Book> TakeBook([FromRoute] int id)
     {
         lock (logic)
         {
-            return logic.CanAddLiquid();
+            return logic.TakeBook(id);
         }
     }
 
-    /// <summary>
-    /// Check if liquid can be subtracted from the capacity
-    /// </summary>
-    /// <returns>boolean</returns>
-	[HttpGet]
-    [Route("canSubtractLiquid")]
-    public ActionResult<bool> CanSubtractLiquid()
-    {
-        lock (logic)
-        {
-            return logic.CanSubtractLiquid();
-        }
-    }
-
-    /// <summary>
-    /// Add liquid to the capacity
-    /// </summary>
-    /// <param name="amount">Amount of liquid to add</param>
-    /// <returns>Amount of liquid to be added</returns>
     [HttpPost]
-    [Route("addLiquid/{amount}")]
-    public ActionResult<int> AddLiquid([FromRoute] int amount)
+    [Route("returnBook")]
+    public ActionResult ReturnBook([FromBody] Book book)
     {
         lock (logic)
         {
-            return logic.AddLiquid(amount);
+            logic.ReturnBook(book);
+            return Ok();
         }
     }
 
-    /// <summary>
-    /// Subtract liquid from the capacity
-    /// </summary>
-    /// <param name="amount">Amount of liquid to subtract</param>
-    /// <returns>Amount of liquid to be subtracted</returns>
-	[HttpPost]
-    [Route("subtractLiquid/{amount}")]
-    public ActionResult<int> SubtractLiquid([FromRoute] int amount)
+    [HttpGet]
+    [Route("repairBook/{id}/{wear}")]
+    public ActionResult RepairBook([FromRoute] int id, [FromRoute] float wear)
     {
         lock (logic)
         {
-            return logic.SubtractLiquid(amount);
+            logic.RepairBook(id, wear);
+            return Ok();
         }
     }
 
-    // palikta kaip pavyzdys
+    [HttpGet]
+    [Route("getLibraryCapacity")]
+    public ActionResult<int> GetLibraryCapacity()
+    {
+        lock (logic)
+        {
+            return logic.GetLibraryCapacity();
+        }
+    }
 
-    // [HttpGet]
-    // [Route("AddLiteral/{left}")]
-    // public ActionResult<int> AddLiteral([FromRoute] int left, [FromQuery] int right)
-    // {
-    //     lock (logic)
-    //     {
-    //         return logic.AddLiteral(left, right);
-    //     }
-    // }
+    [HttpGet]
+    [Route("getWornOutBooks")]
+    public ActionResult<Book[]> GetWornOutBooks()
+    {
+        lock (logic)
+        {
+            return logic.GetWornOutBooks();
+        }
+    }
+
+    [HttpGet]
+    [Route("getLibraryBudget")]
+    public ActionResult<float> GetLibraryBudget()
+    {
+        lock (logic)
+        {
+            return logic.GetLibraryBudget();
+        }
+    }
 }

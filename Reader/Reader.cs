@@ -55,25 +55,26 @@ class Reader
 
                 while (true)
                 {
-                    var canAdd = service.CanAddLiquid();
+                    log.Info("");
+                    // takes a random book from the library
+                    int bookNumber = rnd.Next(0, service.GetLibraryCapacity());
+                    Book book = service.TakeBook(bookNumber);
 
-                    var liquidToAdd = rnd.Next(1, 20);
-
-                    if (canAdd)
+                    // if the book is null, it means that it is already taken
+                    if (book == null)
                     {
-                        log.Info($"Generated amount to add: {liquidToAdd}");
-                        var addedLiquid = service.AddLiquid(liquidToAdd);
-                        log.Info($"Amount of liquid added: {addedLiquid}");
-                        log.Info("\n");
+                        log.Info($"Book {bookNumber} is not available");
+                        Thread.Sleep(2000);
+                        continue;
                     }
-                    else
-                    {
-                        log.Info("I cannot add any more liquid");
-                        log.Info("\n");
-                    }
-                    log.Info("---");
 
-                    Thread.Sleep(2000);
+                    // decides a random time to take reading the book
+                    int timeToRead = rnd.Next(5000, 10000);
+                    log.Info($"Reading book {bookNumber} for {timeToRead} ms");
+                    Thread.Sleep(timeToRead);
+
+                    // Returns the book
+                    service.ReturnBook(book);
                 }
             }
             catch (Exception e)
