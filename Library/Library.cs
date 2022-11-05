@@ -1,4 +1,4 @@
-﻿namespace Server;
+﻿namespace Library;
 
 using System.Net;
 using System.Reflection;
@@ -6,7 +6,7 @@ using System.Reflection;
 using NLog;
 
 
-public class Server
+public class Library
 {
     public static int capacity = new Random().Next(0, 100);
     public static int lowerBound = 0;
@@ -42,7 +42,7 @@ public class Server
     /// <param name="args">Command line arguments.</param>
     public static void Main(string[] args)
     {
-        var self = new Server();
+        var self = new Library();
         self.Run(args);
     }
 
@@ -56,7 +56,7 @@ public class Server
         ConfigureLogging();
 
         //indicate server is about to start
-        log.Info("Server is about to start");
+        log.Info("Library is about to start");
 
         //start the server
         StartServer(args);
@@ -67,7 +67,7 @@ public class Server
             {
                 log.Info("Client is working...");
                 Thread.Sleep(2000);
-                Server.clientIsActive = false;
+                Library.clientIsActive = false;
             }
             lowerBound = new Random().Next(0, 50);
             upperBound = new Random().Next(lowerBound + 1, 100);

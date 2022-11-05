@@ -8,9 +8,9 @@ using ServiceReference;
 
 
 /// <summary>
-/// Fill
+/// Reader
 /// </summary>
-class Fill
+class Reader
 {
     /// <summary>
     /// Logger for this class.
@@ -48,7 +48,7 @@ class Fill
             try
             {
                 //connect to server
-                var service = new FillService("http://127.0.0.1:5000", new HttpClient());
+                var service = new ReaderService("http://127.0.0.1:5000", new HttpClient());
 
                 //test service
                 var rnd = new Random();
@@ -93,7 +93,7 @@ class Fill
     /// <param name="args">Command line arguments.</param>
     static void Main(string[] args)
     {
-        var self = new Fill();
+        var self = new Reader();
         self.Run();
     }
 }

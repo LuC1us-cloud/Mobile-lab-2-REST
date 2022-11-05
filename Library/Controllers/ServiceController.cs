@@ -1,4 +1,4 @@
-namespace Server;
+namespace Library;
 
 using Microsoft.AspNetCore.Mvc;
 

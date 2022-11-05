@@ -9,9 +9,9 @@
 
 	"codeGenerators": {
 		"openApiToCSharpClient": {
-			"classname" : "FillService",
-			"namespace" : "ServiceReference",
-			"output" : "FillService.cs",
+			"classname": "RenewService",
+			"namespace": "ServiceReference",
+			"output": "RenewService.cs",
 
 			"generateSyncMethods": true
 		}

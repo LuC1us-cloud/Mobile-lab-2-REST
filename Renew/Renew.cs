@@ -8,9 +8,9 @@ using ServiceReference;
 
 
 /// <summary>
-/// Pump
+/// Renew
 /// </summary>
-class Pump
+class Renew
 {
     /// <summary>
     /// Logger for this class.
@@ -48,7 +48,7 @@ class Pump
             try
             {
                 //connect to server
-                var service = new PumpService("http://127.0.0.1:5000", new HttpClient());
+                var service = new RenewService("http://127.0.0.1:5000", new HttpClient());
 
                 //test service
                 var rnd = new Random();
@@ -93,7 +93,7 @@ class Pump
     /// <param name="args">Command line arguments.</param>
     static void Main(string[] args)
     {
-        var self = new Pump();
+        var self = new Renew();
         self.Run();
     }
 }

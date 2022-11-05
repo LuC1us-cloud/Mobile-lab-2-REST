@@ -1,4 +1,4 @@
-namespace Server;
+namespace Library;
 
 /// <summary>
 /// Structure for testing pass-by-value calls.
