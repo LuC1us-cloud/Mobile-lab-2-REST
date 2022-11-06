@@ -70,8 +70,7 @@ class ServiceLogic : IService
     {
         log.Info($"");
 
-        // Get all the books that are worn out
-        List<Book> wornOutBooks = Library.books.Where(b => b.Wear > 0 && !b.Taken).ToList();
+        var wornOutBooks = Library.books.Where(b => b.Wear > 0 && !b.Taken).ToList();
         log.Info($"Found {wornOutBooks.Count} worn out books");
         return wornOutBooks;
     }

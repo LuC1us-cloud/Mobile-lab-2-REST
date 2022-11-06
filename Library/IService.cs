@@ -8,16 +8,6 @@ public class Book
     public DateTime LoanTime { get; set; } // Time when the book was taken
     public float Wear { get; set; } = 0f; // Indicates how much the book is worn
     public float RepairPrice { get; set; } = 1f; // Price of the book per 1 wear to repair
-
-    public float GetRepairPrice()
-    {
-        return RepairPrice * Wear;
-    }
-
-    public float GetRepairAmount(float money)
-    {
-        return money / GetRepairPrice();
-    }
 }
 
 public interface IService
