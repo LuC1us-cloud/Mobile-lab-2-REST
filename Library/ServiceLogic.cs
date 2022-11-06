@@ -66,12 +66,13 @@ class ServiceLogic : IService
 
         log.Info($"Returned: id {bookId}, wear {Library.books[bookId].Wear.ToString("0.00")}, after {(int)timeTaken.TotalMilliseconds} ms");
     }
-    public Book[] GetWornOutBooks()
+    public List<Book> GetWornOutBooks()
     {
         log.Info($"");
 
         // Get all the books that are worn out
-        var wornOutBooks = Library.books.Where(b => b.Wear > 0 && !b.Taken).ToArray();
+        List<Book> wornOutBooks = Library.books.Where(b => b.Wear > 0 && !b.Taken).ToList();
+        log.Info($"Found {wornOutBooks.Count} worn out books");
         return wornOutBooks;
     }
 

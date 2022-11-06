@@ -1,11 +1,10 @@
-﻿namespace Client;
+﻿namespace Reader;
 
 using System.Net.Http;
 
 using NLog;
 
 using ServiceReference;
-
 
 /// <summary>
 /// Reader
@@ -59,6 +58,7 @@ class Reader
                     // takes a random book from the library
                     int bookNumber = rnd.Next(0, service.GetLibraryCapacity());
                     Book book = service.TakeBook(bookNumber);
+                    log.Info($"Book {book.Id} taken");
 
                     // if the book is null, it means that it is already taken
                     if (book == null)

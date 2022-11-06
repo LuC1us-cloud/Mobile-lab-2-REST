@@ -58,10 +58,10 @@ class Renew
                     log.Info("");
                     Thread.Sleep(10000);
 
-                    Book[] books = service.GetWornOutBooks();
-                    log.Info($"Found {books.Length} worn out books");
+                    var books = service.GetWornOutBooks();
+                    log.Info($"Found {books.Count} worn out books");
 
-                    if (books.Length == 0)
+                    if (books.Count == 0)
                     {
                         log.Info("No worn out books found");
                         continue;
@@ -75,7 +75,7 @@ class Renew
                         continue;
                     }
 
-                    Book mostWornOutBook = books[0];
+                    Book mostWornOutBook = books.First();
                     foreach (var book in books)
                     {
                         if (book.Wear > mostWornOutBook.Wear)
@@ -86,8 +86,9 @@ class Renew
 
                     log.Info($"Most worn out book: Id {mostWornOutBook.Id}, ({mostWornOutBook.Wear.ToString("0.00")})");
 
-                    float repairAmountPercentage = mostWornOutBook.GetRepairAmount(budget) * 100;
-                    float repairPrice = mostWornOutBook.GetRepairPrice();
+                    float repairPrice = mostWornOutBook.RepairPrice * mostWornOutBook.Wear;
+                    float repairAmount = budget / repairPrice;
+                    float repairAmountPercentage = repairAmount * 100;
                     log.Info($"Available repair amount: {(repairAmountPercentage).ToString("0.00")}% of {mostWornOutBook.Wear.ToString("0.00")} | Full repair price: {repairPrice.ToString("0.00")}$");
 
                     if (repairAmountPercentage > 100) repairAmountPercentage = 100;
