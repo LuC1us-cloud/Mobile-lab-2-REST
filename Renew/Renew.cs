@@ -55,16 +55,25 @@ class Renew
 
                 while (true)
                 {
-                    log.Info("");
+                    log.Info("--------------------");
                     Thread.Sleep(10000);
 
-                    var books = service.GetWornOutBooks();
-                    log.Info($"Found {books.Count} worn out books");
+                    var booksIds = service.GetWornOutBooks();
+                    log.Info($"Found {booksIds.Count} worn out books");
 
-                    if (books.Count == 0)
+                    if (booksIds.Count == 0)
                     {
                         log.Info("No worn out books found");
                         continue;
+                    }
+
+                    List<Book> books = new List<Book>();
+                    foreach (var id in booksIds)
+                    {
+                        var book = service.TakeBook(id);
+                        books.Add(book);
+                        log.Info($"Took book {id} and inspected it");
+                        service.ReturnBook(book);
                     }
 
                     float budget = service.GetLibraryBudget();

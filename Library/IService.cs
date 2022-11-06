@@ -30,6 +30,6 @@ public interface IService
     void RepairBook(int id, float wear);
 
     int GetLibraryCapacity();
-    List<Book> GetWornOutBooks();
+    List<int> GetWornOutBooks();
     float GetLibraryBudget();
 }

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reader", "Reader\Reader.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{D2BB4D44-5CE9-4442-B466-EB5DF272F1B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renew", "Renew\Renew.csproj", "{D2BB4D44-5CE9-4442-B466-EB5DF272F1B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renew", "Renew\Renew.csproj", "{D2BB4D44-5CE9-4442-B466-EB5DF272F1B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

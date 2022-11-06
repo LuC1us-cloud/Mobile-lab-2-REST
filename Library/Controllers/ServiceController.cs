@@ -59,7 +59,7 @@ public class ServiceController : ControllerBase
 
     [HttpGet]
     [Route("getWornOutBooks")]
-    public ActionResult<List<Book>> GetWornOutBooks()
+    public ActionResult<List<int>> GetWornOutBooks()
     {
         lock (logic)
         {
